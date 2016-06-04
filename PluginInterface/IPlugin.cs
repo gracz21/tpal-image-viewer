@@ -10,7 +10,7 @@ namespace PluginInterface
 {
     public interface IPlugin
     {
-        void doOperation(ref TransformedBitmap image);
+        TransformedBitmap doOperation(TransformedBitmap image);
         Button getPluginButton();
     }
 }

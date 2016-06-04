@@ -29,8 +29,10 @@ namespace ImageViewer
         public MainWindow()
         {
             InitializeComponent();
+
             baseImage = new BitmapImage(new Uri(@"C:\Users\Kamil\Desktop\Studia\Magisterskie\Semestr I\Technologie programistyczne - aplikacje lokalne\ImageViewer\images\image.jpg"));
             imageView.Source = baseImage;
+
             currentImage = new TransformedBitmap();
             currentImage.BeginInit();
             currentImage.Source = baseImage;
@@ -70,7 +72,7 @@ namespace ImageViewer
             Button clickedButton = (Button)sender;
             IPlugin plugin;
             loadedPlugins.TryGetValue(clickedButton, out plugin);
-            plugin.doOperation(ref currentImage);
+            currentImage = plugin.doOperation(currentImage);
             imageView.Source = currentImage;
             redoStack.Clear();
             undoStack.Push(plugin);
@@ -89,7 +91,7 @@ namespace ImageViewer
 
             foreach (IPlugin operation in undoStack)
             {
-                operation.doOperation(ref currentImage);
+                currentImage = operation.doOperation(currentImage);
             }
 
             imageView.Source = currentImage;
@@ -99,7 +101,7 @@ namespace ImageViewer
         {
             IPlugin redoneOperation = redoStack.Pop();
             undoStack.Push(redoneOperation);
-            redoneOperation.doOperation(ref currentImage);
+            currentImage = redoneOperation.doOperation(currentImage);
             imageView.Source = currentImage;
         }
     }

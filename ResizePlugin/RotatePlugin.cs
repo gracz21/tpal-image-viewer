@@ -16,14 +16,14 @@ namespace RotatePlugin
 {
     public class RotatePlugin: IPlugin
     {
-        public void doOperation(ref TransformedBitmap image)
+        public TransformedBitmap doOperation(TransformedBitmap image)
         {
             TransformedBitmap tb = new TransformedBitmap();
             tb.BeginInit();
             tb.Source = image;
             tb.Transform = new RotateTransform(90);
             tb.EndInit();
-            image = tb;
+            return tb;
         }
 
         public Button getPluginButton()
