@@ -8,10 +8,10 @@
                 <Button>
                     <Label>Open</Label>
                 </Button>
-                <Button Click="UndoButton_Click">
+                <Button Name="undoButton" Click="UndoButton_Click" IsEnabled="{Binding UndoEnable}">
                     <Label>Undo</Label>
                 </Button>
-                <Button Click="RedoButton_Click">
+                <Button Name="redoButton" Click="RedoButton_Click" IsEnabled="{Binding RedoEnable}">
                     <Label>Redo</Label>
                 </Button>
             </ToolBar>

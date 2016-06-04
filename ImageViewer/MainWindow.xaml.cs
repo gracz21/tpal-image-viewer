@@ -1,6 +1,7 @@
 ﻿using PluginInterface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -18,13 +19,41 @@ using System.Windows.Shapes;
 
 namespace ImageViewer
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public bool UndoEnable
+        {
+            get
+            { 
+                return isUndoEnable;
+            }
+            set
+            {
+                isUndoEnable = value;
+                NotifyPropertyChanged("UndoEnable");
+            }
+        }
+
+        public bool RedoEnable
+        {
+            get 
+            {
+                return isRedoEnable;
+            }
+            set
+            {
+                isRedoEnable = value;
+                NotifyPropertyChanged("RedoEnable");
+            }
+        }
+
         private BitmapImage baseImage;
         private TransformedBitmap currentImage;
         private Dictionary<Button, IPlugin> loadedPlugins;
         private Stack<IPlugin> undoStack;
         private Stack<IPlugin> redoStack;
+        private bool isUndoEnable;
+        private bool isRedoEnable;
 
         public MainWindow()
         {
@@ -43,6 +72,9 @@ namespace ImageViewer
 
             undoStack = new Stack<IPlugin>();
             redoStack = new Stack<IPlugin>();
+
+            undoButton.DataContext = this;
+            redoButton.DataContext = this;
         }
 
         private void loadPlugins()
@@ -72,10 +104,15 @@ namespace ImageViewer
             Button clickedButton = (Button)sender;
             IPlugin plugin;
             loadedPlugins.TryGetValue(clickedButton, out plugin);
+
             currentImage = plugin.doOperation(currentImage);
             imageView.Source = currentImage;
+
             redoStack.Clear();
             undoStack.Push(plugin);
+
+            UndoEnable = true;
+            RedoEnable = false;
         }
 
         private void UndoButton_Click(object sender, RoutedEventArgs e)
@@ -95,6 +132,9 @@ namespace ImageViewer
             }
 
             imageView.Source = currentImage;
+
+            updateIsUndoEnable();
+            RedoEnable = true;
         }
 
         private void RedoButton_Click(object sender, RoutedEventArgs e)
@@ -103,6 +143,29 @@ namespace ImageViewer
             undoStack.Push(redoneOperation);
             currentImage = redoneOperation.doOperation(currentImage);
             imageView.Source = currentImage;
+
+            updateIsUndoEnable();
+            updateIsRedoEnable();
         }
+
+        private void updateIsUndoEnable()
+        {
+            UndoEnable = undoStack.Count != 0;
+        }
+
+        private void updateIsRedoEnable()
+        {
+            RedoEnable = redoStack.Count != 0;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }    
     }
 }
