@@ -75,5 +75,29 @@ namespace ImageViewer
             redoStack.Clear();
             undoStack.Push(plugin);
         }
+
+        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        {
+            TransformedBitmap tb = new TransformedBitmap();
+            tb.BeginInit();
+            tb.Source = baseImage;
+            tb.EndInit();
+            currentImage = tb;
+
+            IPlugin undoOperation = undoStack.Pop();
+            redoStack.Push(undoOperation);
+
+            foreach (IPlugin operation in undoStack)
+            {
+                operation.doOperation(ref currentImage);
+            }
+
+            imageView.Source = currentImage;
+        }
+
+        private void RedoButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -8,6 +8,12 @@
                 <Button>
                     <Label>Open</Label>
                 </Button>
+                <Button Click="UndoButton_Click">
+                    <Label>Undo</Label>
+                </Button>
+                <Button Click="RedoButton_Click">
+                    <Label>Redo</Label>
+                </Button>
             </ToolBar>
         </ToolBarTray>
         <Image Name="imageView"/>
