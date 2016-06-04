@@ -83,6 +83,7 @@ namespace ImageViewer
                         IPlugin plugin = (IPlugin)obj;
 
                         Button pluginButton = plugin.getPluginButton();
+                        pluginButton.IsEnabled = false;
                         pluginButton.Click += pluginButton_Click;
 
                         loadedPlugins.Add(pluginButton, plugin);
@@ -103,6 +104,14 @@ namespace ImageViewer
 
             if (result == true)
             {
+                if (baseImage == null)
+                {
+                    foreach (Button button in loadedPlugins.Keys)
+                    {
+                        button.IsEnabled = true;
+                    }
+                }
+
                 baseImage = new BitmapImage(new Uri(dlg.FileName));
                 imageView.Source = baseImage;
                 currentImage = baseImage;
