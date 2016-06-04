@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ResizePlugin
+namespace PluginInterface
 {
-    public class Class1
+    public interface IPlugin
     {
+        void doOperation();
     }
 }

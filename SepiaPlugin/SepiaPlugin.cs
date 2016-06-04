@@ -1,12 +1,13 @@
-﻿using System;
+﻿using PluginInterface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PluginInterface
+namespace SepiaPlugin
 {
-    public class Class1
+    public class SepiaPlugin: IPlugin
     {
     }
 }
