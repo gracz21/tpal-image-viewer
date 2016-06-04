@@ -16,7 +16,7 @@ namespace RotatePlugin
 {
     public class RotatePlugin: IPlugin
     {
-        public TransformedBitmap doOperation(BitmapSource image)
+        public BitmapSource doOperation(BitmapSource image)
         {
             return new TransformedBitmap(image, new RotateTransform(90));
         }

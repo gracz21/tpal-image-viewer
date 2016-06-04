@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "PluginIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotatePlugin", "ResizePlugin\RotatePlugin.csproj", "{8B530273-00DE-4EF2-9AF2-95E2C56C0160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SepiaPlugin", "SepiaPlugin\SepiaPlugin.csproj", "{0490E5D0-71C4-4716-AB38-840D348B38E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreyscalePlugin", "SepiaPlugin\GreyscalePlugin.csproj", "{0490E5D0-71C4-4716-AB38-840D348B38E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

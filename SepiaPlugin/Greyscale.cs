@@ -12,13 +12,9 @@ namespace SepiaPlugin
 {
     public class Greyscale: IPlugin
     {
-        public TransformedBitmap doOperation(BitmapSource image)
+        public BitmapSource doOperation(BitmapSource image)
         {
-            TransformedBitmap tmp = new TransformedBitmap();
-            tmp.BeginInit();
-            tmp.Source = new FormatConvertedBitmap(image, PixelFormats.Gray8, BitmapPalettes.Gray256, 0.0);
-            tmp.EndInit();
-            return tmp;
+            return new FormatConvertedBitmap(image, PixelFormats.Gray8, BitmapPalettes.Gray256, 0.0);
         }
 
         public Button getPluginButton()
