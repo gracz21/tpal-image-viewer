@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace SepiaPlugin
 {
-    public class SepiaPlugin: IPlugin
+    public class Greyscale: IPlugin
     {
         public TransformedBitmap doOperation(BitmapSource image)
         {
@@ -25,7 +25,7 @@ namespace SepiaPlugin
         {
             Button result = new Button();
             Label label = new Label();
-            label.Content = "Sepia";
+            label.Content = "Grayscale";
             result.Content = label;
 
             return result;
