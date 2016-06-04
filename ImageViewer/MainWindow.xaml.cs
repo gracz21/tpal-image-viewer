@@ -15,14 +15,12 @@ using System.Windows.Shapes;
 
 namespace ImageViewer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            imageView.Source = new BitmapImage(new Uri(@"C:\Users\Kamil\Desktop\Studia\Magisterskie\Semestr I\Technologie programistyczne - aplikacje lokalne\ImageViewer\images\image.jpg"));
         }
     }
 }
