@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace PluginInterface
 {
     public interface IPlugin
     {
-        void doOperation();
+        void doOperation(ref TransformedBitmap image);
         Button getPluginButton();
     }
 }
