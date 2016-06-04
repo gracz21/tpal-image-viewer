@@ -76,6 +76,7 @@ namespace ImageViewer
                 Assembly assembly = Assembly.LoadFrom(dll);
                 foreach (Type type in assembly.GetTypes())
                 {
+                    toolBar.Items.Add(new Separator());
                     if (type.IsClass && type.IsPublic && typeof(IPlugin).IsAssignableFrom(type))
                     {
                         Object obj = Activator.CreateInstance(type);
