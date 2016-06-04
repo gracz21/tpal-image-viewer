@@ -14,7 +14,25 @@ using System.Windows.Media;
 
 namespace RotatePlugin
 {
-    public class RotatePlugin: IPlugin
+    public class RotateLeftPlugin : IPlugin
+    {
+        public BitmapSource doOperation(BitmapSource image)
+        {
+            return new TransformedBitmap(image, new RotateTransform(-90));
+        }
+
+        public Button getPluginButton()
+        {
+            Button result = new Button();
+            Label label = new Label();
+            label.Content = "Rotate left";
+            result.Content = label;
+
+            return result;
+        }
+    }
+
+    public class RotateRightPlugin: IPlugin
     {
         public BitmapSource doOperation(BitmapSource image)
         {
@@ -25,7 +43,7 @@ namespace RotatePlugin
         {
             Button result = new Button();
             Label label = new Label();
-            label.Content = "Rotate";
+            label.Content = "Rotate right";
             result.Content = label;
 
             return result;
