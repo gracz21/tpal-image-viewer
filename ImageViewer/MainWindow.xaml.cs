@@ -48,7 +48,7 @@ namespace ImageViewer
         }
 
         private BitmapImage baseImage;
-        private TransformedBitmap currentImage;
+        private BitmapSource currentImage;
         private Dictionary<Button, IPlugin> loadedPlugins;
         private Stack<IPlugin> undoStack;
         private Stack<IPlugin> redoStack;
@@ -62,10 +62,7 @@ namespace ImageViewer
             baseImage = new BitmapImage(new Uri(@"C:\Users\Kamil\Desktop\Studia\Magisterskie\Semestr I\Technologie programistyczne - aplikacje lokalne\ImageViewer\images\image.jpg"));
             imageView.Source = baseImage;
 
-            currentImage = new TransformedBitmap();
-            currentImage.BeginInit();
-            currentImage.Source = baseImage;
-            currentImage.EndInit();
+            currentImage = baseImage;
 
             loadedPlugins = new Dictionary<Button,IPlugin>();
             loadPlugins();
@@ -117,11 +114,7 @@ namespace ImageViewer
 
         private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
-            TransformedBitmap tb = new TransformedBitmap();
-            tb.BeginInit();
-            tb.Source = baseImage;
-            tb.EndInit();
-            currentImage = tb;
+            currentImage = baseImage;
 
             IPlugin undoneOperation = undoStack.Pop();
             redoStack.Push(undoneOperation);

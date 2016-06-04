@@ -16,14 +16,9 @@ namespace RotatePlugin
 {
     public class RotatePlugin: IPlugin
     {
-        public TransformedBitmap doOperation(TransformedBitmap image)
+        public TransformedBitmap doOperation(BitmapSource image)
         {
-            TransformedBitmap tb = new TransformedBitmap();
-            tb.BeginInit();
-            tb.Source = image;
-            tb.Transform = new RotateTransform(90);
-            tb.EndInit();
-            return tb;
+            return new TransformedBitmap(image, new RotateTransform(90));
         }
 
         public Button getPluginButton()
