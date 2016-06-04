@@ -84,8 +84,8 @@ namespace ImageViewer
             tb.EndInit();
             currentImage = tb;
 
-            IPlugin undoOperation = undoStack.Pop();
-            redoStack.Push(undoOperation);
+            IPlugin undoneOperation = undoStack.Pop();
+            redoStack.Push(undoneOperation);
 
             foreach (IPlugin operation in undoStack)
             {
@@ -97,7 +97,10 @@ namespace ImageViewer
 
         private void RedoButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            IPlugin redoneOperation = redoStack.Pop();
+            undoStack.Push(redoneOperation);
+            redoneOperation.doOperation(ref currentImage);
+            imageView.Source = currentImage;
         }
     }
 }
