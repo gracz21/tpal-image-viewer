@@ -4,7 +4,7 @@
         Title="MainWindow" Height="500" Width="756">
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar>
+            <ToolBar Name="toolBar">
                 <Button>
                     <Label>Open</Label>
                 </Button>
