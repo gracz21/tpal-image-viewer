@@ -5,7 +5,7 @@
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar Name="toolBar">
-                <Button>
+                <Button Click="openButton_Click">
                     <Label>Open</Label>
                 </Button>
                 <Button Name="undoButton" Click="UndoButton_Click" IsEnabled="{Binding UndoEnable}">

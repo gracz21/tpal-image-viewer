@@ -59,11 +59,6 @@ namespace ImageViewer
         {
             InitializeComponent();
 
-            baseImage = new BitmapImage(new Uri(@"C:\Users\Kamil\Desktop\Studia\Magisterskie\Semestr I\Technologie programistyczne - aplikacje lokalne\ImageViewer\images\image.jpg"));
-            imageView.Source = baseImage;
-
-            currentImage = baseImage;
-
             loadedPlugins = new Dictionary<Button,IPlugin>();
             loadPlugins();
 
@@ -93,6 +88,29 @@ namespace ImageViewer
                         toolBar.Items.Add(pluginButton);
                     }
                 }
+            }
+        }
+
+        private void openButton_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.DefaultExt = ".jpg";
+            dlg.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png";
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                baseImage = new BitmapImage(new Uri(dlg.FileName));
+                imageView.Source = baseImage;
+                currentImage = baseImage;
+
+                undoStack.Clear();
+                UndoEnable = false;
+
+                redoStack.Clear();
+                RedoEnable = false;
             }
         }
 
