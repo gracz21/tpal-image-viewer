@@ -20,15 +20,27 @@ namespace ImageViewer
 {
     public partial class MainWindow : Window
     {
-        private BitmapImage image;
-        private Type[] loadedTypes;
+        private BitmapImage baseImage;
+        private TransformedBitmap currentImage;
+        private Dictionary<Button, IPlugin> loadedPlugins;
+        private Stack<IPlugin> undoStack;
+        private Stack<IPlugin> redoStack;
 
         public MainWindow()
         {
             InitializeComponent();
-            image = new BitmapImage(new Uri(@"C:\Users\Kamil\Desktop\Studia\Magisterskie\Semestr I\Technologie programistyczne - aplikacje lokalne\ImageViewer\images\image.jpg"));
-            imageView.Source = image;
+            baseImage = new BitmapImage(new Uri(@"C:\Users\Kamil\Desktop\Studia\Magisterskie\Semestr I\Technologie programistyczne - aplikacje lokalne\ImageViewer\images\image.jpg"));
+            imageView.Source = baseImage;
+            currentImage = new TransformedBitmap();
+            currentImage.BeginInit();
+            currentImage.Source = baseImage;
+            currentImage.EndInit();
+
+            loadedPlugins = new Dictionary<Button,IPlugin>();
             loadPlugins();
+
+            undoStack = new Stack<IPlugin>();
+            redoStack = new Stack<IPlugin>();
         }
 
         private void loadPlugins()
@@ -42,11 +54,26 @@ namespace ImageViewer
                     {
                         Object obj = Activator.CreateInstance(type);
                         IPlugin plugin = (IPlugin)obj;
+
                         Button pluginButton = plugin.getPluginButton();
+                        pluginButton.Click += pluginButton_Click;
+
+                        loadedPlugins.Add(pluginButton, plugin);
                         toolBar.Items.Add(pluginButton);
                     }
                 }
             }
+        }
+
+        private void pluginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            IPlugin plugin;
+            loadedPlugins.TryGetValue(clickedButton, out plugin);
+            plugin.doOperation(ref currentImage);
+            imageView.Source = currentImage;
+            redoStack.Clear();
+            undoStack.Push(plugin);
         }
     }
 }
